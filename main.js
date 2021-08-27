@@ -5,10 +5,10 @@ song=loadSound("music.mp3");
 scoreRightWrist=0;
 scoreLeftWrist=0;
 
-RightWristX=0;
-LefttWristX=0;
-RightWristY=0;
-LefttWristY=0;
+rightWristX=0;
+lefttWristX=0;
+rightWristY=0;
+lefttWristY=0;
 
     
 
@@ -26,16 +26,16 @@ function modelLoaded(){
     console.log('poseNet is initialised');
 }
 
-function gotPoses(){
+function gotPoses(results){
     if(results.length>0)
     {
 scoreRightWrist=results[0].pose.keypoints[10].score;
 scoreLeftWrist=results[0].pose.keypoints[9].score;
 
-RightWristX=results[0].pose.rightWrist.x;
-RightWristY=results[0].pose.rightWrist.y;
-LeftWristX=results[0].pose.leftWrist.x;
-LeftWristY=results[0].pose.leftWrist.y;
+rightWristX=results[0].pose.rightWrist.x;
+rightWristY=results[0].pose.rightWrist.y;
+leftWristX=results[0].pose.leftWrist.x;
+leftWristY=results[0].pose.leftWrist.y;
     }
 }
 function draw(){
@@ -44,32 +44,32 @@ function draw(){
     fill("ff0000");
     stroke("ff0900");
 if(scoreRightWrist>0.2){
-circle(RightWristX,RightWristY,20);
-if(RightWristY>0 && RightWristY<=100){
+circle(rightWristX,rightWristY,20);
+if(rightWristY>0 && rightWristY<=100){
     document.getElementById("speed").innerHTML="Speed = 0.5x";
     song.rate(0.5);
 }
- else if(RightWristY>100 && RightWristY<=200){
+ else if(rightWristY>100 && rightWristY<=200){
     document.getElementById("speed").innerHTML="Speed = 1x";
     song.rate(1);
 }
-else if(RightWristY>200 && RightWristY<=300){
+else if(rightWristY>200 && rightWristY<=300){
     document.getElementById("speed").innerHTML="Speed = 1.5x";
     song.rate(1.5);
 }
-else if(RightWristY>300 && RightWristY<=400){
+else if(rightWristY>300 && rightWristY<=400){
     document.getElementById("speed").innerHTML="Speed = 2x";
     song.rate(2);
 }
-else if(RightWristY>400){
+else if(rightWristY>400){
     document.getElementById("speed").innerHTML="Speed = 2.5x";
     song.rate(2.5);
 }
 
 }
 if (scoreLeftWrist>0.2){
-circle(LeftWristX,LeftWristY,20);
-inNumberLeftWristY=Number(LeftWristY);
+circle(leftWristX,leftWristY,20);
+inNumberLeftWristY=Number(leftWristY);
 remove_decimal=floor(inNumberLeftWristY);
 volume=remove_decimal/500;
 document.getElementById("volume").innerHTML="Volume = " + volume;
